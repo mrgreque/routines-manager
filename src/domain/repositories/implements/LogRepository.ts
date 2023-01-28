@@ -1,7 +1,8 @@
 import { IFilters, IInserLogInput, ILog } from "src/infra/dtos/log.dto";
 import { ILogRepository } from "../ILogRepository";
+import { AbstractRepository } from "./AbstractRepository";
 
-class LogRepository implements ILogRepository {
+class LogRepository extends AbstractRepository<ILog> implements ILogRepository {
     async addLog(log: IInserLogInput): Promise<void> {
         console.log(log)
     };

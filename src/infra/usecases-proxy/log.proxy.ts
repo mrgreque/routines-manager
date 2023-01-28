@@ -18,7 +18,7 @@ class LogProxy {
     };
 
     insertLog() {
-        const insertLogUseCase = new InsertLogUseCase(repositories.log, repositories.project, repositories.sender as any);
+        const insertLogUseCase = new InsertLogUseCase(repositories.log, repositories.project, repositories.sender as any); //Any server para testar sem subir o whatsapp
         const insertLogController = new InsertLogController(insertLogUseCase);
 
         return insertLogController;

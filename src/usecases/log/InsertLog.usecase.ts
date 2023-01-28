@@ -20,7 +20,10 @@ class InsertLogUseCase {
             throw new Error('Project not found');
         };
 
-        await this.logRepository.addLog(logInput);
+        await this.logRepository.create({
+            ...logInput,
+            createdAt: new Date()
+        });
 
         if (logInput.error) {
             try {
