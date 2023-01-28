@@ -2,7 +2,9 @@ import { ILogRepository } from 'src/domain/repositories/ILogRepository';
 import { IProjectRepository } from 'src/domain/repositories/IProjectRepository';
 import { ISenderRepository } from 'src/domain/repositories/ISenderRepository';
 import { IInserLogInput } from '../../infra/dtos/log.dto';
+import { config } from 'dotenv';
 
+config();
 class InsertLogUseCase {
     constructor(private logRepository: ILogRepository, private projectRepository: IProjectRepository, private senderRepository: ISenderRepository) { };
 
@@ -23,7 +25,7 @@ class InsertLogUseCase {
         if (logInput.error) {
             try {
                 await this.senderRepository.sendMessage({
-                    to: "5516991344675@c.us",
+                    to: `${process.env.WAPP_NUMBER_1}@c.us`,
                     body: `Project: ${projectExists.name}\nLog: ${logInput.log}\nError: ${logInput.error}`
                 });
             } catch (error) {

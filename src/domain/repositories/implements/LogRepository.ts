@@ -1,4 +1,4 @@
-import { IInserLogInput, ILog } from "src/infra/dtos/log.dto";
+import { IFilters, IInserLogInput, ILog } from "src/infra/dtos/log.dto";
 import { ILogRepository } from "../ILogRepository";
 
 class LogRepository implements ILogRepository {
@@ -6,17 +6,19 @@ class LogRepository implements ILogRepository {
         console.log(log)
     };
 
-    async getLogs(): Promise<ILog[]> {
+    async getLogs(filters?: IFilters): Promise<ILog[]> {
         return [];
     };
 
-    async getLogsByProject(project: string): Promise<ILog> {
-        return {
-            project: 'Project 1',
+    async getLogsByProject(project: string, filters?: IFilters): Promise<ILog[]> {
+        let error = filters.withError ? filters.withError : false;
+
+        return [{
+            project: project,
             createdAt: new Date(),
-            error: false,
+            error: error,
             log: 'Log 1'
-        };
+        }];
     };
 };
 

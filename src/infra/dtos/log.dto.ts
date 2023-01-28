@@ -10,3 +10,12 @@ export interface IInserLogInput {
     log: string;
     error: boolean;
 }
+
+export interface IFilters {
+    withError?: boolean;
+}
+
+export interface IGetLogByProject {
+    project: string;
+    filters?: IFilters;
+}
