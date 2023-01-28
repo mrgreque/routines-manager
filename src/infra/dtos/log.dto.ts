@@ -12,7 +12,7 @@ export interface IInserLogInput {
 }
 
 export interface IFilters {
-    withError?: boolean;
+    error?: boolean;
 }
 
 export interface IGetLogByProject {
