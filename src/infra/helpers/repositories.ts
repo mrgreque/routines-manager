@@ -5,6 +5,6 @@ import { SenderRepository } from "src/domain/repositories/implements/SenderRepos
 
 export default {
     log: new LogRepository(MongoProvider, 'logs'),
-    project: new ProjectRepository(),
+    project: new ProjectRepository(MongoProvider, 'projects'),
     sender: new SenderRepository()
 };

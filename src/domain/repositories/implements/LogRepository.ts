@@ -3,23 +3,8 @@ import { ILogRepository } from "../ILogRepository";
 import { AbstractRepository } from "./AbstractRepository";
 
 class LogRepository extends AbstractRepository<ILog> implements ILogRepository {
-    async addLog(log: IInserLogInput): Promise<void> {
-        console.log(log)
-    };
-
-    async getLogs(filters?: IFilters): Promise<ILog[]> {
-        return [];
-    };
-
     async getLogsByProject(project: string, filters?: IFilters): Promise<ILog[]> {
-        let error = filters.withError ? filters.withError : false;
-
-        return [{
-            project: project,
-            createdAt: new Date(),
-            error: error,
-            log: 'Log 1'
-        }];
+        return await this._collection.find({ project, ...filters }).toArray() as unknown as ILog[];
     };
 };
 

@@ -1,23 +1,13 @@
 import { IInsertProjectInput, IProject } from "src/infra/dtos/project.dto";
 import { IProjectRepository } from "../IProjectRepository";
+import { AbstractRepository } from "./AbstractRepository";
 
-class ProjectRepository implements IProjectRepository {
-    async addProject(project: IInsertProjectInput): Promise<void> {
-        console.log(project);
-    };
-
-    async getProjects(): Promise<IProject[]> {
-        return [];
-    };
-
+class ProjectRepository extends AbstractRepository<IProject> implements IProjectRepository {
     async getProjectByName(name: string): Promise<IProject> {
-        return {
-            name: 'Project 1',
-            description: 'Project 1 description',
-            active: true,
-            withError: false,
-            paths: {}
-        };
+        console.log(name)
+        const result = await this._collection.findOne({ name }) as unknown as IProject;
+        console.log(result)
+        return result;
     };
 };
 

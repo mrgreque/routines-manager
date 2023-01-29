@@ -36,7 +36,9 @@ class SenderRepository implements ISenderRepository {
             this.client = client;
         };
 
-        create('ws-wpp-provider', qr)
+        create('ws-wpp-provider', qr, null, {
+            disableWelcome: true,
+        })
             .then((client) => {
                 start(client);
             })
