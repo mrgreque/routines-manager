@@ -9,7 +9,11 @@ class GetLogByProjectController {
     async handle(request: Request, response: Response): Promise<Response> {
 
         const project: string = request.params.project;
-        const filters: IFilters = request.body;
+        let filters: IFilters = {};
+        if (request.query.hasOwnProperty('error')) {
+            if (request.query.error === 'true') filters.error = true;
+            else if (request.query.error === 'false') filters.error = false;
+        };
 
         try {
             const log = await this.getLogByProjectUseCase.execute({ project, filters });

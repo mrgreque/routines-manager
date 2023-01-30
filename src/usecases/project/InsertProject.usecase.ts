@@ -9,6 +9,12 @@ class InsertProjectUseCase {
         if (!input.name) throw new Error("Name is required");
         if (!input.description) throw new Error("Description is required");
 
+        if (input.paths) {
+            if (!input.paths.resultFolder && !input.paths.start && !input.paths.end) {
+                throw new Error("One path are required");
+            };
+        };
+
         const project = await this.projectRepository.getProjectByName(input.name);
         if (project) {
             throw new Error("Project already exists");
