@@ -17,3 +17,13 @@ export interface IInsertProjectInput {
     description: string;
     paths?: IProjectPaths;
 }
+
+export interface IGetProjectInput {
+    name: string;
+}
+
+export interface IUpdateProjectInput {
+    name: string;
+    update: IProject;
+    nameHasUpdated: boolean;
+}

@@ -4,10 +4,12 @@ import { AbstractRepository } from "./AbstractRepository";
 
 class ProjectRepository extends AbstractRepository<IProject> implements IProjectRepository {
     async getProjectByName(name: string): Promise<IProject> {
-        console.log(name)
         const result = await this._collection.findOne({ name }) as unknown as IProject;
-        console.log(result)
         return result;
+    };
+
+    async updateProjectByName(name: string, data: IProject): Promise<void> {
+        await this._collection.updateOne({ name }, { $set: data });
     };
 };
 

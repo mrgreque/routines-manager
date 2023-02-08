@@ -22,4 +22,8 @@ export abstract class AbstractRepository<T> {
     public async get(id: string): Promise<T> {
         return await this._collection.findOne({ _id: id }) as T;
     }
+
+    public async update(id: string, data: T): Promise<void> {
+        await this._collection.updateOne({ _id: id }, { $set: data });
+    }
 }

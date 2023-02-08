@@ -4,4 +4,5 @@ export interface IAbstractRepository<T> {
     create(data: T): Promise<void>;
     get(id: string): Promise<T>;
     getAll(filters: IFilters): Promise<T[]>;
+    update(id: string, data: T): Promise<void>;
 };

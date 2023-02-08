@@ -8,4 +8,16 @@ projectRouter.post('/insert', (request: Request, response: Response): Promise<Re
     return projectProxy.insertProjectController.handle(request, response);
 });
 
+projectRouter.put('/update', (request: Request, response: Response): Promise<Response> => {
+    return projectProxy.updateProjectController.handle(request, response);
+});
+
+projectRouter.get('/get/:name', (request: Request, response: Response): Promise<Response> => {
+    return projectProxy.getProjectController.handle(request, response);
+});
+
+projectRouter.get('/get-all', (request: Request, response: Response): Promise<Response> => {
+    return projectProxy.getAllProjectsController.handle(request, response);
+});
+
 export { projectRouter };
