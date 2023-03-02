@@ -3,9 +3,13 @@ import { config } from "dotenv";
 
 config();
 
-function MongoProvider(): Connection {
-    const connection = mongoose.createConnection(process.env.MONGO_URL);
-    return connection;
+class MongoProvider {
+    public async connect(): Promise<Connection> {
+        const conn = mongoose.createConnection();
+        const uriConn = await conn.openUri(process.env.MONGO_URL, {});
+        console.log('MongoDB connected');
+        return uriConn;
+    }
 }
 
 export { MongoProvider };

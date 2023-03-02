@@ -1,14 +1,20 @@
-import mongoose, { Collection, Connection } from "mongoose";
+import mongoose, { Collection, Connection, isValidObjectId } from "mongoose";
 import { createConnection } from "net";
 import { IFilters } from "src/infra/dtos/log.dto";
+import { MongoProvider } from "src/infra/providers/MongoProvider";
 
 export abstract class AbstractRepository<T> {
 
     public _collection: Collection;
 
-    constructor(dbProvider: () => Connection, collectionName: string) {
-        const connn = dbProvider();
-        this._collection = connn.collection(collectionName);
+    constructor(collectionName: string) {
+        this.initialize(collectionName);
+    }
+
+    async initialize(collectionName: string): Promise<void> {
+        const mongoProvider = new MongoProvider();
+        const connection = await mongoProvider.connect();
+        this._collection = connection.collection(collectionName);
     }
 
     public async create(data: T): Promise<void> {
@@ -20,10 +26,10 @@ export abstract class AbstractRepository<T> {
     }
 
     public async get(id: string): Promise<T> {
-        return await this._collection.findOne({ _id: id }) as T;
+        return await this._collection.findOne({ _id: new mongoose.Types.ObjectId(id) }) as T;
     }
 
     public async update(id: string, data: T): Promise<void> {
-        await this._collection.updateOne({ _id: id }, { $set: data });
+        await this._collection.updateOne({ _id: new mongoose.Types.ObjectId(id) }, { $set: data });
     }
 }

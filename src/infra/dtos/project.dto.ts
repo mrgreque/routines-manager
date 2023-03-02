@@ -1,10 +1,12 @@
 export interface IProjectPaths {
+    projectFolder?: string;
     resultFolder?: string;
     start?: string;
-    end?: string;
+    stop?: string;
 }
 
 export interface IProject {
+    _id?: string;
     name: string;
     description: string;
     withError: boolean;
@@ -19,11 +21,11 @@ export interface IInsertProjectInput {
 }
 
 export interface IGetProjectInput {
-    name: string;
+    id: string;
 }
 
 export interface IUpdateProjectInput {
-    name: string;
+    id: string;
     update: IProject;
     nameHasUpdated: boolean;
 }

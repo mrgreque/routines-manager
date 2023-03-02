@@ -5,7 +5,7 @@ class UpdateProjectUseCase {
     constructor(private projectRepository: ProjectRepository) { };
 
     async execute(data: IUpdateProjectInput): Promise<IProject> {
-        const project = await this.projectRepository.getProjectByName(data.name);
+        const project = await this.projectRepository.get(data.id);
 
         if (!project) {
             throw new Error("Project not found");
@@ -19,7 +19,7 @@ class UpdateProjectUseCase {
             };
         };
 
-        await this.projectRepository.updateProjectByName(data.name, data.update);
+        await this.projectRepository.update(data.id, data.update);
 
         return project;
     };

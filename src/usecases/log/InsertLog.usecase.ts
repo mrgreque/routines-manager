@@ -14,7 +14,7 @@ class InsertLogUseCase {
             throw new Error('Log data not provided');
         };
 
-        const projectExists = await this.projectRepository.getProjectByName(logInput.project);
+        const projectExists = await this.projectRepository.get(logInput.project);
 
         if (!projectExists) {
             throw new Error('Project not found');
@@ -27,14 +27,30 @@ class InsertLogUseCase {
 
         if (logInput.error) {
             try {
-                await this.senderRepository.sendMessage({
-                    to: `${process.env.WAPP_NUMBER_1}@c.us`,
-                    body: `Project: ${projectExists.name}\nLog: ${logInput.log}\nError: ${logInput.error}`
+                try {
+                    await this.senderRepository.sendMessage({
+                        to: `${process.env.WAPP_NUMBER_1}@c.us`,
+                        body: `Project: ${projectExists.name}\nLog: ${logInput.log}\nError: ${logInput.error}`
+                    });
+                } catch (error) {
+                    console.log("Não foi possível sinalizar o erro: " + logInput.log + " devido ao erro:" + error);
+                }
+
+                await this.projectRepository.update(projectExists._id, {
+                    ...projectExists,
+                    withError: true
                 });
             } catch (error) {
                 console.log("Não foi possível sinalizar o erro: " + logInput.error + " devido ao erro:" + error);
             };
-        };
+        } else {
+            if (!logInput.error && projectExists.withError) {
+                await this.projectRepository.update(projectExists._id, {
+                    ...projectExists,
+                    withError: false
+                });
+            };
+        }
     };
 };
 

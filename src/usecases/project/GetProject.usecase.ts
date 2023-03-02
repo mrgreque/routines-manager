@@ -5,7 +5,7 @@ class GetProjectUseCase {
     constructor(private projectRepository: ProjectRepository) { };
 
     async execute(data: IGetProjectInput): Promise<IProject> {
-        const project = await this.projectRepository.getProjectByName(data.name);
+        const project = await this.projectRepository.get(data.id);
 
         if (!project) {
             throw new Error("Project not found");

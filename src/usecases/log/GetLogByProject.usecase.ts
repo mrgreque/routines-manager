@@ -11,13 +11,11 @@ class GetLogByProjectUseCase {
             throw new Error('Project not provided');
         };
 
-        const projectExists = await this.projectRepository.getProjectByName(project);
+        const projectExists = await this.projectRepository.get(project);
 
         if (!projectExists) {
             throw new Error('Project not found');
         };
-
-        console.log(filters)
 
         return await this.logRepository.getLogsByProject(project, filters);
     };

@@ -12,7 +12,7 @@ projectRouter.put('/update', (request: Request, response: Response): Promise<Res
     return projectProxy.updateProjectController.handle(request, response);
 });
 
-projectRouter.get('/get/:name', (request: Request, response: Response): Promise<Response> => {
+projectRouter.get('/get/:id', (request: Request, response: Response): Promise<Response> => {
     return projectProxy.getProjectController.handle(request, response);
 });
 
