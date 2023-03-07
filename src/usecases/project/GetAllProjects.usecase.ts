@@ -1,19 +1,19 @@
-import { ProjectRepository } from "src/domain/repositories/implements/ProjectRepository";
-import { IFilters } from "src/infra/dtos/log.dto";
-import { IProject } from "src/infra/dtos/project.dto";
+import { ProjectRepository } from 'src/domain/repositories/implements/ProjectRepository';
+import { IProject } from 'src/infra/dtos/project.dto';
 
 class GetAllProjectstUseCase {
-    constructor(private projectRepository: ProjectRepository) { };
+  // eslint-disable-next-line no-unused-vars
+  constructor(private projectRepository: ProjectRepository) {}
 
-    async execute(): Promise<IProject[]> {
-        const project = await this.projectRepository.getAll({});
+  async execute(): Promise<IProject[]> {
+    const project = await this.projectRepository.getAll({});
 
-        if (!project) {
-            throw new Error("Project not found");
-        };
+    if (!project) {
+      throw new Error('Project not found');
+    }
 
-        return project;
-    };
-};
+    return project;
+  }
+}
 
 export { GetAllProjectstUseCase };

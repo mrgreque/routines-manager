@@ -1,21 +1,21 @@
 export interface ILog {
-    project: string;
-    log: string;
-    error: boolean;
-    createdAt: Date;
+  project: string;
+  log: string;
+  error: boolean;
+  createdAt: Date;
 }
 
 export interface IInserLogInput {
-    project: string;
-    log: string;
-    error: boolean;
+  project: string;
+  log: string;
+  error: boolean;
 }
 
 export interface IFilters {
-    error?: boolean;
+  error?: boolean;
 }
 
 export interface IGetLogByProject {
-    project: string;
-    filters?: IFilters;
+  project: string;
+  filters?: IFilters;
 }

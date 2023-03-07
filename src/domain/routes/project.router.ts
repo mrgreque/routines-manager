@@ -1,23 +1,48 @@
-import { Request, Response, Router } from "express";
-import { ProjectProxy } from "src/infra/usecases-proxy/project.proxy";
+import { Request, Response, Router } from 'express';
+import { ProjectProxy } from 'src/infra/usecases-proxy/project.proxy';
 
-const projectRouter = Router();
-const projectProxy = new ProjectProxy();
+class ProjectRouter {
+  public router = null;
+  private socketConnection = null;
 
-projectRouter.post('/insert', (request: Request, response: Response): Promise<Response> => {
-    return projectProxy.insertProjectController.handle(request, response);
-});
+  constructor() {
+    const projectRouter = Router();
+    const projectProxy = new ProjectProxy();
 
-projectRouter.put('/update', (request: Request, response: Response): Promise<Response> => {
-    return projectProxy.updateProjectController.handle(request, response);
-});
+    projectRouter.post(
+      '/insert',
+      (request: Request, response: Response): Promise<Response> => {
+        return projectProxy.insertProjectController.handle(request, response);
+      },
+    );
 
-projectRouter.get('/get/:id', (request: Request, response: Response): Promise<Response> => {
-    return projectProxy.getProjectController.handle(request, response);
-});
+    projectRouter.put(
+      '/update',
+      (request: Request, response: Response): Promise<Response> => {
+        return projectProxy.updateProjectController.handle(request, response);
+      },
+    );
 
-projectRouter.get('/get-all', (request: Request, response: Response): Promise<Response> => {
-    return projectProxy.getAllProjectsController.handle(request, response);
-});
+    projectRouter.get(
+      '/get/:id',
+      (request: Request, response: Response): Promise<Response> => {
+        return projectProxy.getProjectController.handle(request, response);
+      },
+    );
 
-export { projectRouter };
+    projectRouter.get(
+      '/get-all',
+      (request: Request, response: Response): Promise<Response> => {
+        return projectProxy.getAllProjectsController.handle(request, response);
+      },
+    );
+
+    this.router = projectRouter;
+  }
+
+  async setSocketConnection(socketConnection) {
+    this.socketConnection = socketConnection;
+  }
+}
+
+export { ProjectRouter };

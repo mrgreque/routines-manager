@@ -1,14 +1,34 @@
 import express from 'express';
 import 'express-async-errors';
-import { router } from './domain/routes/router';
+import { DefaultRouter } from './domain/routes/router';
 import cors from 'cors';
 
-const app = express();
+class App {
+  public socketConnection = null;
+  public app = null;
+  private defaultRouter = null;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  constructor() {
+    const app = express();
+    this.defaultRouter = new DefaultRouter();
 
-app.use('/', router);
+    app.use(
+      cors({
+        origin: '*',
+      }),
+    );
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
-export { app };
+    app.use('/', this.defaultRouter.router);
+
+    this.app = app;
+  }
+
+  async setSocketConnection(socketConnection) {
+    this.socketConnection = socketConnection;
+    this.defaultRouter.setSocketConnection(socketConnection);
+  }
+}
+
+export { App };

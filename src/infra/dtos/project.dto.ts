@@ -1,31 +1,31 @@
 export interface IProjectPaths {
-    projectFolder?: string;
-    resultFolder?: string;
-    start?: string;
-    stop?: string;
+  projectFolder?: string;
+  resultFolder?: string;
+  start?: string;
+  stop?: string;
 }
 
 export interface IProject {
-    _id?: string;
-    name: string;
-    description: string;
-    withError: boolean;
-    active: boolean;
-    paths?: IProjectPaths;
+  _id?: string;
+  name: string;
+  description: string;
+  withError: boolean;
+  active: boolean;
+  paths?: IProjectPaths;
 }
 
 export interface IInsertProjectInput {
-    name: string;
-    description: string;
-    paths?: IProjectPaths;
+  name: string;
+  description: string;
+  paths?: IProjectPaths;
 }
 
 export interface IGetProjectInput {
-    id: string;
+  id: string;
 }
 
 export interface IUpdateProjectInput {
-    id: string;
-    update: IProject;
-    nameHasUpdated: boolean;
+  id: string;
+  update: IProject;
+  nameHasUpdated: boolean;
 }

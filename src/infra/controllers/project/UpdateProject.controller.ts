@@ -1,26 +1,26 @@
-import { Request, Response } from "express";
-import { IInsertProjectInput, IUpdateProjectInput } from "src/infra/dtos/project.dto";
-import { InsertProjectUseCase } from "src/usecases/project/InsertProject.usecase";
-import { UpdateProjectUseCase } from "src/usecases/project/UpdateProject.usecase";
+import { Request, Response } from 'express';
+import { IUpdateProjectInput } from 'src/infra/dtos/project.dto';
+import { UpdateProjectUseCase } from 'src/usecases/project/UpdateProject.usecase';
 
 class UpdateProjectController {
-    constructor(private updateProjectUseCase: UpdateProjectUseCase) { }
+  // eslint-disable-next-line no-unused-vars
+  constructor(private updateProjectUseCase: UpdateProjectUseCase) {}
 
-    async handle(request: Request, response: Response): Promise<Response> {
-        const body: IUpdateProjectInput = request.body;
+  async handle(request: Request, response: Response): Promise<Response> {
+    const body: IUpdateProjectInput = request.body;
 
-        try {
-            await this.updateProjectUseCase.execute(body);
+    try {
+      await this.updateProjectUseCase.execute(body);
 
-            return response.status(201).json({
-                message: 'Project updated successfully.'
-            });
-        } catch (error) {
-            return response.status(400).json({
-                message: error.message || 'Unexpected error.'
-            });
-        };
-    };
-};
+      return response.status(201).json({
+        message: 'Project updated successfully.',
+      });
+    } catch (error) {
+      return response.status(400).json({
+        message: error.message || 'Unexpected error.',
+      });
+    }
+  }
+}
 
 export { UpdateProjectController };
