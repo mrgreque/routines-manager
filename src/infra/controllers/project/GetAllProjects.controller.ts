@@ -7,7 +7,7 @@ class GetAllProjectsController {
 
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const projects = await this.getAllProjectsUseCase.execute();
+      const projects = await this.getAllProjectsUseCase.execute(request.query);
 
       return response.status(201).json(projects);
     } catch (error) {

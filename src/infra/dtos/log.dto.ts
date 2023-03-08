@@ -13,6 +13,9 @@ export interface IInserLogInput {
 
 export interface IFilters {
   error?: boolean;
+  active?: boolean;
+  createdAt?: { $gte?: Date; $lt?: Date };
+  withError?: boolean;
 }
 
 export interface IGetLogByProject {
